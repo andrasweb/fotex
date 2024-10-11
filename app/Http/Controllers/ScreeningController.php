@@ -64,6 +64,8 @@ class ScreeningController extends Controller
             ], 500);
         }
 
+        $data = $request->get('data');
+
         if(
             !array_key_exists('movie_id', $data) || empty($data['movie_id'])
             ||

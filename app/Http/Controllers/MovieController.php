@@ -64,6 +64,8 @@ class MovieController extends Controller
             ], 500);
         }
 
+        $data = $request->get('data');
+
         if(!array_key_exists('title', $data) || empty($data['title'])){
             return response()->json([
                 'error' => 'Invalid data. Title is required'
