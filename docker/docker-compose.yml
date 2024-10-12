@@ -1,0 +1,31 @@
+version: '3.5'
+
+services:
+    server:
+        image: fotex:dev
+        ports:
+            - "8080:80"
+        depends_on:
+            - db
+        environment:
+            - 'DB_HOST=db'
+            - 'DB_PORT=3306'
+            - 'DB_DATABASE=fotex'
+            - 'DB_USERNAME=root'
+            - 'DB_PASSWORD='
+        volumes:
+            - ./volumes/logs:/var/log/apache2:rw
+            - ./volumes/config/apache2.conf:/etc/apache2/apache2.conf
+            - ./volumes/config/000-default.conf:/etc/apache2/sites-available/000-default.conf
+            - ../vendor:/var/www/html/vendor
+
+    db:
+        image: mysql:8.0
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_DATABASE: fotex
+            #MYSQL_USER: root
+            MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+        volumes:
+            - ./volumes/mysql:/var/lib/mysql
